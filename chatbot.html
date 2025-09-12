@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Guide - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Enhanced animations and effects */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); }
+      50% { box-shadow: 0 0 50px rgba(99, 102, 241, 0.6); }
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes slideInLeft {
+      from { 
+        opacity: 0; 
+        transform: translateX(-50px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+    
+    @keyframes slideInRight {
+      from { 
+        opacity: 0; 
+        transform: translateX(50px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+    
+    @keyframes slideInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    
+    @keyframes scaleIn {
+      from { 
+        opacity: 0; 
+        transform: scale(0.8); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1); 
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    /* Hero background with animated gradient */
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+    
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .dark-glass {
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Floating elements */
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Glowing effects */
+    .glow-btn {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    /* Chat container */
+    .chat-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Chat messages */
+    .message {
+      animation: slideInUp 0.5s ease-out;
+    }
+    
+    .user-message {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      margin-left: auto;
+      border-radius: 20px 20px 5px 20px;
+    }
+    
+    .ai-message {
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      color: #374151;
+      margin-right: auto;
+      border-radius: 20px 20px 20px 5px;
+      border: 1px solid rgba(99, 102, 241, 0.1);
+    }
+    
+    /* Typing indicator */
+    .typing-indicator {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    .typing-dots {
+      display: inline-block;
+    }
+    
+    .typing-dots::after {
+      content: '...';
+      animation: typing 1.5s steps(3, end) infinite;
+    }
+    
+    /* Input area */
+    .input-area {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(99, 102, 241, 0.1);
+    }
+    
+    .input-field {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .input-field:focus {
+      border-color: #667eea;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+    
+    .send-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.4);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+    
+    .send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+    
+    /* Header enhancement */
+    .header-bg {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Enhanced typography */
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Back button */
+    .back-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.4);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden min-h-screen">
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 float"></div>
+    <div class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 float" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15 float" style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- ===== Enhanced Header ===== -->
+  <header class="header-bg sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="back-btn text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Home
+        </a>
+        <div>
+          <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">EduPath</h1>
+          <p class="text-xs text-gray-500 -mt-1 font-medium">AI Guide ✨</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+        <span class="text-sm text-gray-600 font-medium">AI Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Chat Interface ===== -->
+  <div class="max-w-4xl mx-auto px-6 py-8">
+    <!-- Welcome Section -->
+    <div class="hero-bg text-white py-16 text-center px-6 relative overflow-hidden rounded-3xl mb-8">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="relative z-10">
+        <h2 class="hero-title text-4xl md:text-5xl font-black mb-4 leading-tight">
+          Meet Your AI Guide
+        </h2>
+        <p class="text-lg md:text-xl mb-6 max-w-2xl mx-auto leading-relaxed font-light">
+          Your personal education and career counselor, available 24/7 to help you navigate your academic journey.
+        </p>
+        <div class="flex items-center justify-center gap-2 text-sm">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span>Ready to help you succeed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container rounded-3xl overflow-hidden">
+      <!-- Chat Messages Area -->
+      <div id="chat-messages" class="h-96 overflow-y-auto p-6 space-y-4">
+        <!-- Welcome Message -->
+        <div class="message ai-message max-w-xs lg:max-w-md p-4 shadow-lg">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              AI
+            </div>
+            <div>
+              <p class="text-sm font-medium mb-1">EduPath AI Guide</p>
+              <p class="text-sm">Hello! I'm your AI education and career guide. I'm here to help you with questions about courses, colleges, careers, and education paths. How can I assist you today?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator (Hidden by default) -->
+      <div id="typing-indicator" class="px-6 pb-2 hidden">
+        <div class="message ai-message max-w-xs lg:max-w-md p-4 shadow-lg">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              AI
+            </div>
+            <div>
+              <p class="text-sm font-medium mb-1">EduPath AI Guide</p>
+              <p class="text-sm typing-indicator">
+                <span class="typing-dots"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area p-6">
+        <div class="flex gap-3">
+          <input 
+            type="text" 
+            id="message-input" 
+            placeholder="Ask me anything about education, careers, or courses..."
+            class="input-field flex-1 px-4 py-3 rounded-xl outline-none text-gray-800 placeholder-gray-500"
+            maxlength="500"
+          />
+          <button 
+            id="send-btn" 
+            class="send-btn text-white px-6 py-3 rounded-xl shadow-lg font-semibold text-sm flex items-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            Send
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 mt-2 text-center">
+          Press Enter to send • AI responses may take a moment
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // Gemini API Configuration
+    const GEMINI_API_KEY = 'AIzaSyCFyFsba_5kUrnTxNMytzIG32UVYjSv1PI';
+    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+    
+    // Hidden system prompt
+    const SYSTEM_PROMPT = "You are an AI chatbot from EduPath. You act as an education and career guide. Answer the user's questions in a friendly, informative, and helpful manner, providing guidance on courses, colleges, careers, and education paths.";
+    
+    // DOM Elements
+    const chatMessages = document.getElementById('chat-messages');
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const typingIndicator = document.getElementById('typing-indicator');
+    
+    // Basic formatter for AI text (bold + line breaks)
+    function formatAITextToHtml(text) {
+      const escaped = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      const withBold = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1<\/strong>');
+      return withBold.replace(/\n/g, '<br>');
+    }
+
+    // Chat functionality
+    function addMessage(content, isUser = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'} max-w-xs lg:max-w-md p-4 shadow-lg`;
+      
+      if (isUser) {
+        messageDiv.innerHTML = `
+          <div class="flex items-start gap-3 justify-end">
+            <div class="text-right">
+              <p class="text-sm font-medium mb-1 text-white/80">You</p>
+              <p class="text-sm">${content}</p>
+            </div>
+            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              U
+            </div>
+          </div>
+        `;
+      } else {
+        const aiHtml = formatAITextToHtml(content);
+        messageDiv.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              AI
+            </div>
+            <div>
+              <p class="text-sm font-medium mb-1">EduPath AI Guide</p>
+              <p class="text-sm">${aiHtml}</p>
+            </div>
+          </div>
+        `;
+      }
+      
+      chatMessages.appendChild(messageDiv);
+      scrollToBottom();
+    }
+    
+    function showTypingIndicator() {
+      typingIndicator.classList.remove('hidden');
+      scrollToBottom();
+    }
+    
+    function hideTypingIndicator() {
+      typingIndicator.classList.add('hidden');
+    }
+    
+    function scrollToBottom() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // Enhanced error handling and debugging
+    async function sendMessage() {
+      const message = messageInput.value.trim();
+      if (!message) return;
+      
+      // Add user message
+      addMessage(message, true);
+      
+      // Clear input and disable send button
+      messageInput.value = '';
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = `
+        <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        Sending...
+      `;
+      
+      // Show typing indicator
+      showTypingIndicator();
+      
+      try {
+        console.log('Sending request to Gemini API...');
+        
+        // Prepare the full prompt with system instruction
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nUser: ${message}`;
+        
+        const requestBody = {
+          contents: [{
+            parts: [{
+              text: fullPrompt
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          }
+        };
+        
+        console.log('Request body:', requestBody);
+        
+        // Direct API call
+        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+        });
+        
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API Error Response:', errorText);
+          throw new Error(`API request failed: ${response.status} - ${errorText}`);
+        }
+        
+        const data = await response.json();
+        console.log('API Response:', data);
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+          const aiResponse = data.candidates[0].content.parts[0].text;
+          hideTypingIndicator();
+          addMessage(aiResponse);
+        } else if (data.error) {
+          console.error('API Error:', data.error);
+          throw new Error(`API Error: ${data.error.message || 'Unknown error'}`);
+        } else {
+          console.error('Unexpected response format:', data);
+          throw new Error('Invalid response format from API');
+        }
+        
+      } catch (error) {
+        console.error('Error calling Gemini API:', error);
+        hideTypingIndicator();
+        
+        // More specific error messages
+        let errorMessage = 'I apologize, but I\'m having trouble connecting right now. ';
+        
+        if (error.message.includes('Failed to fetch') || error.message.includes('CORS')) {
+          errorMessage += 'This might be a network connectivity issue. Please check your internet connection and try again.';
+        } else if (error.message.includes('API request failed: 400')) {
+          errorMessage += 'There seems to be an issue with the request format. Please try rephrasing your question.';
+        } else if (error.message.includes('API request failed: 403')) {
+          errorMessage += 'There might be an issue with API access. Please try again in a moment.';
+        } else if (error.message.includes('API request failed: 429')) {
+          errorMessage += 'I\'m receiving too many requests right now. Please wait a moment and try again.';
+        } else {
+          errorMessage += 'Please try again in a moment, or feel free to ask a different question.';
+        }
+        
+        addMessage(errorMessage);
+      } finally {
+        // Re-enable send button
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+          Send
+        `;
+        messageInput.focus();
+      }
+    }
+    
+    // Event listeners
+    sendBtn.addEventListener('click', sendMessage);
+    
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+    
+    // Focus input on page load
+    window.addEventListener('load', () => {
+      messageInput.focus();
+    });
+    
+    // Auto-resize input based on content
+    messageInput.addEventListener('input', () => {
+      messageInput.style.height = 'auto';
+      messageInput.style.height = messageInput.scrollHeight + 'px';
+    });
+  </script>
+
+</body>
+</html>

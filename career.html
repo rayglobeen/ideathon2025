@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Roadmaps - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .quiz-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all .3s cubic-bezier(.25, .8, .25, 1);
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(99, 102, 241, .4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all .3s cubic-bezier(.25, .8, .25, 1);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(102, 126, 234, .4);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    .header-bg {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Glossy Header -->
+  <header class="header-bg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <h1
+          class="text-2xl md:text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          EduPath</h1>
+      </div>
+      <nav class="flex items-center gap-3">
+
+        <a href="index.html" class="px-5 py-2 rounded-xl text-white font-semibold btn-primary">← Back to Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Background Orbs -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20">
+    </div>
+    <div class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20">
+    </div>
+    <div
+      class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15">
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero-bg relative text-white py-20 text-center px-6 overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <h2
+        class="text-5xl md:text-6xl font-black leading-tight mb-4 bg-gradient-to-r from-yellow-300 via-pink-300 to-white bg-clip-text text-transparent">
+        Career Roadmaps</h2>
+      <p class="text-lg md:text-2xl font-light max-w-3xl mx-auto">Select your current stage to explore curated roadmaps,
+        resources and downloads.</p>
+    </div>
+  </section>
+
+  <!-- Stage Selection -->
+  <section class="py-14 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div id="stageSelection" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="quiz-card p-8 rounded-3xl shadow-xl cursor-pointer text-center" onclick="showPaths('primary')">
+          <div class="text-6xl mb-4">📘</div>
+          <h3 class="text-xl font-bold text-gray-800">10th & Below</h3>
+          <p class="text-gray-600 mt-2 text-sm">Find your stream: Science, Commerce, Arts</p>
+        </div>
+        <div class="quiz-card p-8 rounded-3xl shadow-xl cursor-pointer text-center" onclick="showPaths('secondary')">
+          <div class="text-6xl mb-4">📚</div>
+          <h3 class="text-xl font-bold text-gray-800">11th–12th</h3>
+          <p class="text-gray-600 mt-2 text-sm">Prep for JEE, NEET, Design, Law and more</p>
+        </div>
+        <div class="quiz-card p-8 rounded-3xl shadow-xl cursor-pointer text-center" onclick="showPaths('ug')">
+          <div class="text-6xl mb-4">🎓</div>
+          <h3 class="text-xl font-bold text-gray-800">Undergraduates</h3>
+          <p class="text-gray-600 mt-2 text-sm">Specializations, internships, certifications</p>
+        </div>
+        <div class="quiz-card p-8 rounded-3xl shadow-xl cursor-pointer text-center" onclick="showPaths('pg')">
+          <div class="text-6xl mb-4">🚀</div>
+          <h3 class="text-xl font-bold text-gray-800">Postgraduates</h3>
+          <p class="text-gray-600 mt-2 text-sm">Jobs, higher studies, research, startups</p>
+        </div>
+      </div>
+
+      <!-- Paths -->
+      <div id="pathDisplay" class="hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h3 id="pathTitle"
+            class="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          </h3>
+          <button class="px-4 py-2 rounded-xl text-white font-semibold btn-primary" onclick="goBack()">← Change
+            Stage</button>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+          <div id="progressBar" class="h-2 rounded-full"
+            style="width: 0%; background: linear-gradient(135deg,#667eea,#764ba2);"></div>
+        </div>
+        <div id="paths" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-8">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h5 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">
+        EduPath</h5>
+      <div class="text-sm text-gray-500 flex items-center justify-center gap-6">
+        <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+      </div>
+      <p class="text-sm text-gray-500 mt-3">© 2025 EduPath. Crafted with ❤️ for the future leaders.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ...existing code...
+const pathData = {
+      primary: [
+        { title: '🔢 PCM (Science: Math)', desc: 'Engineering and tech pathways with solid math foundation.', file: './roadmaps/Your-Epic-PCM-Odyssey-A-Playful-Roadmap-to-Success.pdf' },
+        { title: '🧬 PCB (Science: Bio)', desc: 'Medical and healthcare oriented options after 10th.', file: './roadmaps/The-Epic-PCB-Adventure-Charting-Your-Future-in-Science.pdf' },
+        { title: '💹 Commerce', desc: 'Finance, accounts, business and entrepreneurship basics.', file: './roadmaps/The-Grand-Bazaar-of-Opportunities-Your-Playful-Commerce-Adventure-Map.pdf' },
+        { title: '🎭 Arts/Humanities', desc: 'Creative, media, law, civil services and more.', file: './roadmaps/Charting-Your-Course-A-Creative-Roadmap-to-Opportunities-in-Arts-and-Humanities.pdf' }
+      ],
+      secondary: [
+        { title: '⚙️ Engineering Entrance', desc: 'JEE/engineering roadmap and preparation nuggets.', file: './roadmaps/The-Grand-Blueprint-Navigating-Your-Engineering-Journey-in-India.pdf' },
+        { title: '🩺 Medical Entrance', desc: 'NEET/medical roadmap with resources recap.', file: './roadmaps/A-Compass-for-Medical-Aspirants-Your-Career-Roadmap.pdf' },
+        { title: '📊 Business & Commerce', desc: 'Commerce, CA/CS/CMA direction and tips.', file: './roadmaps/Unlocking-Your-Future-A-Comprehensive-Guide-to-Commerce-Careers.pdf' },
+        { title: '📰 Arts & Government', desc: 'Humanities, law, journalism and public services.', file: './roadmaps/The-Government-Sector-Structure-and-Functions.pdf' }
+      ],
+      ug: [
+        { title: '🎓 Post Graduation Plans', desc: 'Mapping PG choices and outcomes by streams.', file: './roadmaps/Navigating-Your-Horizon-Arts-and-Humanities-Career-Guide-and-Degree-Pathways-in-India.pdf' },
+        { title: '🏛 Competitive Exams', desc: 'UPSC, SSC, Banking high-level preparation guide.', file: './roadmaps/Post-Graduation-Pathways-Navigating-Indias-Competitive-Examinations.pdf' },
+        { title: '🚀 Entrepreneurship', desc: 'Start small, think big—practical entrepreneurship.', file: './roadmaps/The-Entrepreneurial-Journey.pdf' },
+        { title: '💻 Skill-based Careers', desc: 'Digital literacy, certifications and freelance.', file: './roadmaps/Navigating-a-Skills-Based-Career-A-Comprehensive-Guide.pdf' }
+      ],
+      pg: [
+        { title: '📖 Academia & Research', desc: 'PhD, fellowships, teaching and research careers.', file: './roadmaps/Exploring-Doctoral-Research-Fellowships-A-Gateway-to-Academic-Excellence.pdf' },
+        { title: '💼 Corporate Sector', desc: 'IT, finance, consulting and leadership roles.', file: './roadmaps/The-Corporate-Landscape-Navigating-Professional-Environments.pdf' },
+        { title: '🏢 Government Sector', desc: 'Civil services, PSUs and specialized roles.', file: './roadmaps/The-Government-Sector-Structure-and-Functions.pdf' },
+        { title: '🚀 Startups & Innovation', desc: 'From idea to product—startup journey overview.', file: './roadmaps/Entrepreneurship-and-Start-up-Roadmap-Navigating-Your-Business-Journey.pdf' },
+        { title: '🌍 International Opportunities', desc: 'Study/work abroad and global fellowships.', file: './roadmaps/International-Career-Pathways-A-Comprehensive-Guide-to-Global-Opportunities.pdf' }
+      ]
+    };
+// ...rest of the code...
+
+    function showPaths(stage) {
+      document.getElementById('stageSelection').classList.add('hidden');
+      document.getElementById('pathDisplay').classList.remove('hidden');
+      const pathTitle = document.getElementById('pathTitle');
+      const paths = document.getElementById('paths');
+      const progressBar = document.getElementById('progressBar');
+      paths.innerHTML = '';
+      progressBar.style.width = '100%';
+
+      if (stage === 'primary') { pathTitle.textContent = 'Options After Primary Education'; }
+      if (stage === 'secondary') { pathTitle.textContent = 'Options After Secondary Education'; }
+      if (stage === 'ug') { pathTitle.textContent = 'Options After Under Graduation'; }
+      if (stage === 'pg') { pathTitle.textContent = 'Job Sectors After Post Graduation'; }
+
+      pathData[stage].forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card p-6 rounded-2xl shadow-xl';
+        card.innerHTML = `
+          <div class="text-3xl mb-3">${p.title.split(' ')[0]}</div>
+          <h4 class="text-lg font-bold text-gray-800 mb-1">${p.title.substring(p.title.indexOf(' ') + 1)}</h4>
+          <p class="text-sm text-gray-600 mb-4">${p.desc}</p>
+          <div class="flex gap-2">
+            <a href="${p.file}" target="_blank" class="btn-primary text-white px-4 py-2 rounded-xl text-sm">View</a>
+            <a href="${p.file}" download class="px-4 py-2 rounded-xl text-sm border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+          </div>
+        `;
+        paths.appendChild(card);
+      });
+    }
+
+    function goBack() {
+      document.getElementById('pathDisplay').classList.add('hidden');
+      document.getElementById('stageSelection').classList.remove('hidden');
+      const progressBar = document.getElementById('progressBar');
+      progressBar.style.width = '0%';
+    }
+  </script>
+</body>
+
+</html>

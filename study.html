@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premium Study Materials | EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .hero-bg { background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe); background-size: 400% 400%; animation: gradientShift 8s ease infinite; }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); }
+    .hero-title { background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Floating background orbs -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20"></div>
+    <div class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20"></div>
+    <div class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15"></div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-bg relative text-white py-28 md:py-36 text-center px-6 overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- Back to Home -->
+    <a href="index.html"
+      class="absolute top-6 left-6 px-5 py-2 rounded-full bg-white/20 text-white font-semibold border border-white/40 shadow-sm hover:shadow-md hover:bg-white/30 transition backdrop-blur-sm">
+      ← Back to Home
+    </a>
+
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <h1 class="hero-title text-5xl md:text-7xl font-black leading-tight mb-6">Premium Study Materials</h1>
+      <p class="text-lg md:text-2xl font-light max-w-3xl mx-auto">Explore exclusive E-books and Skill Materials curated to boost your learning journey.</p>
+    </div>
+  </section>
+
+<!-- E-Books Section -->
+<section class="px-6 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-10 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">E-BOOKS</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8">
+      <!-- Example Card -->
+      <button onclick="openModal('book1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book1.jpg" alt="Book 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 1</h3>
+      </button>
+      <button onclick="openModal('book2')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book2.jpg" alt="Book 2" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 2</h3>
+      </button>
+      <button onclick="openModal('book1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book1.jpg" alt="Book 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 1</h3>
+      </button>
+      <button onclick="openModal('book2')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book2.jpg" alt="Book 2" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 2</h3>
+      </button>
+      <button onclick="openModal('book1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book1.jpg" alt="Book 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 1</h3>
+      </button>
+      <button onclick="openModal('book2')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="book2.jpg" alt="Book 2" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Book Title 2</h3>
+      </button>
+      <!-- Repeat for book3 – book6 -->
+    </div>
+  </div>
+</section>
+
+<!-- Skill Materials Section -->
+<section class="px-6 py-16 md:py-24 bg-gradient-to-br from-indigo-50 via-white to-purple-50 relative overflow-hidden">
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-10 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">SKILL MATERIALS</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8">
+      <!-- Example Card -->
+      <button onclick="openModal('skill1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill1.jpg" alt="Skill 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 1</h3>
+      </button>
+      <button onclick="openModal('skill2')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill2.jpg" alt="Skill 2" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 2</h3>
+      </button>
+       <button onclick="openModal('skill1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill1.jpg" alt="Skill 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 1</h3>
+      </button>
+       <button onclick="openModal('skill1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill1.jpg" alt="Skill 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 1</h3>
+      </button>
+       <button onclick="openModal('skill1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill1.jpg" alt="Skill 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 1</h3>
+      </button>
+       <button onclick="openModal('skill1')" class="rounded-2xl glass shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+        <img src="skill1.jpg" alt="Skill 1" class="w-32 h-44 object-cover rounded-xl mb-4 shadow-md">
+        <h3 class="text-lg font-semibold">Skill Pack 1</h3>
+      </button>
+      <!-- Repeat for skill3 – skill6 -->
+    </div>
+  </div>
+</section>
+
+<!-- Modal Template -->
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
+    <!-- Close Button -->
+    <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">&times;</button>
+
+    <!-- Modal Content -->
+    <img id="modalImage" src="" alt="Preview" class="w-40 h-56 object-cover rounded-xl mb-4 mx-auto shadow-md">
+    <h3 id="modalTitle" class="text-2xl font-bold text-center mb-2"></h3>
+    <p id="modalDesc" class="text-gray-600 text-center mb-6">This is a short description about the selected material. You can replace this text later.</p>
+    <div class="flex justify-center">
+      <a id="modalDownload" href="#" download class="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow hover:scale-105 transition">📥 Download PDF</a>
+    </div>
+  </div>
+</div>
+
+<!-- Script -->
+<script>
+  const modal = document.getElementById('modal');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalDownload = document.getElementById('modalDownload');
+
+  const materials = {
+    book1: {title: "Book Title 1", img: "book1.jpg", pdf: "/pdfs/book1.pdf", desc: "A useful resource covering basics."},
+    book2: {title: "Book Title 2", img: "book2.jpg", pdf: "/pdfs/book2.pdf", desc: "An advanced guide for learners."},
+    skill1: {title: "Skill Pack 1", img: "skill1.jpg", pdf: "/pdfs/skill1.pdf", desc: "Skill material to boost knowledge."},
+    skill2: {title: "Skill Pack 2", img: "skill2.jpg", pdf: "/pdfs/skill2.pdf", desc: "Practice-oriented learning pack."},
+    // Add rest book3-book6 & skill3-skill6 here...
+  };
+
+  function openModal(id) {
+    const item = materials[id];
+    modalImage.src = item.img;
+    modalTitle.textContent = item.title;
+    modalDesc.textContent = item.desc;
+    modalDownload.href = item.pdf;
+    modal.classList.remove('hidden');
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+  }
+</script>
+
+
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-10">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <h5 class="text-3xl md:text-4xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">EduPath</h5>
+            <span class="text-2xl">✨</span>
+          </div>
+          <p class="text-gray-400 leading-relaxed">Empowering the next generation with intelligent career guidance, personalized learning paths, and the tools needed to transform dreams into reality.</p>
+        </div>
+        <div>
+          <h6 class="text-white font-bold mb-4">Quick Links</h6>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="hover:text-white transition-colors duration-300">Home</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors duration-300">About Us</a></li>
+            <li><a href="login.html" class="hover:text-white transition-colors duration-300">Login / Signup</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-white font-bold mb-4">Get in Touch</h6>
+          <div class="space-y-3">
+            <p><a href="mailto:hello@edupath.com" class="hover:text-white transition-colors duration-300">hello@edupath.com</a></p>
+            <p><a href="tel:+919876543210" class="hover:text-white transition-colors duration-300">+91 98765 43210</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 text-sm">© 2025 EduPath. Crafted with ❤️ for the future leaders.</p>
+        <div class="flex gap-6 text-sm mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+

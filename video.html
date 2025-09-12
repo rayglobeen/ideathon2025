@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        const videos = {
+            1: {
+                src: "videos/video1.mp4",
+                title: "Choose Your Right Career Path!",
+                desc: "Choosing the right career can be overwhelming. In this video, Dr. Amraam Missile explains how to evaluate your interests, identify your strengths, and match them with career options that align with your skills and passion. Learn practical tips to make informed decisions and set yourself up for long-term success.",
+                author: "Dr. Amraam Missile",
+                tags: "Career Guidance, Education, Planning",
+                date: "Published: Sep 2025"
+            },
+            2: {
+                src: "videos/video2.mp4",
+                title: "Top 5 Careers of 2025",
+                desc: "The job market is constantly evolving. This video highlights the top 5 careers projected to grow in 2025, including emerging tech roles, healthcare opportunities, and creative industries. Career Expert provides insights into skills needed, expected salaries, and how to prepare for these careers effectively.",
+                author: "Career Expert",
+                tags: "Career, Trends, Future Jobs",
+                date: "Published: Aug 2025"
+            }
+        };
+
+        function loadVideo() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+            const videoData = videos[id];
+            if (videoData) {
+                document.getElementById("videoPlayer").src = videoData.src;
+                document.getElementById("videoTitle").innerText = videoData.title;
+                document.getElementById("videoDesc").innerText = videoData.desc;
+                document.getElementById("videoAuthor").innerText = "By " + videoData.author;
+                document.getElementById("videoTags").innerText = "Tags: " + videoData.tags;
+                document.getElementById("videoDate").innerText = videoData.date;
+            }
+        }
+    </script>
+
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden" onload="loadVideo()">
+
+    <!-- Glossy Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+          <h1 class="text-2xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">EduPath</h1>
+          <div class="flex items-center gap-2">
+            <a href="counseling.html" class="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-indigo-600 to-purple-600">← Back to Videos</a>
+          </div>
+        </div>
+    </header>
+
+    <!-- Background Orbs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div
+            class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-[pulse_10s_ease-in-out_infinite]">
+        </div>
+        <div
+            class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 animate-[pulse_12s_ease-in-out_infinite]">
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto py-16 px-6">
+
+        
+
+
+        <div class="glass rounded-2xl shadow-2xl overflow-hidden p-6">
+            <div class="glass rounded-2xl shadow-2xl overflow-hidden p-6 mt-6">
+                <video id="videoPlayer" class="w-full rounded-xl shadow-lg" controls autoplay></video>
+
+                <h2 id="videoTitle"
+                    class="text-2xl md:text-3xl font-bold mt-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                </h2>
+
+                <!-- Video Info Panel -->
+                <div class="mt-4 text-gray-700 space-y-4 text-lg max-h-72 overflow-y-auto">
+                    <p id="videoAuthor" class="font-medium text-gray-800"></p>
+                    <p id="videoDesc" class="leading-relaxed"></p>
+                    <p id="videoTags" class="text-sm text-gray-500"></p>
+                    <p id="videoDate" class="text-sm text-gray-400"></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

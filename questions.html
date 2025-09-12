@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Quiz Questions - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Enhanced animations and effects */
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    @keyframes glow {
+      0%,
+      100% {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(99, 102, 241, 0.6);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Hero background with animated gradient */
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Quiz container */
+    .quiz-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: width 0.5s ease;
+    }
+
+    /* Option buttons */
+    .option-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .option-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
+    }
+
+    .option-btn.selected {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Floating elements */
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Enhanced typography */
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    /* Question transition */
+    .question-slide {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.5s ease;
+    }
+
+    .question-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .question-slide.prev {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Glossy Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <h1 class="text-2xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">EduPath</h1>
+      <div class="flex items-center gap-2">
+        <a href="quiz.html" class="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-indigo-600 to-purple-600">← Back to Selection</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div
+      class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 float">
+    </div>
+    <div
+      class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 float"
+      style="animation-delay: -2s;"></div>
+    <div
+      class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15 float"
+      style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- ===== Enhanced Header ===== -->
+  <header class="hero-bg text-white py-16 text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 max-w-5xl mx-auto">
+      
+
+      <h1 class="hero-title text-4xl md:text-5xl font-black mb-4 leading-tight">
+        Career Assessment Quiz
+      </h1>
+
+      <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light">
+        Answer these questions honestly to discover your ideal career path
+      </p>
+    </div>
+  </header>
+
+  <!-- ===== Quiz Content ===== -->
+  <section class="py-12 px-6 relative">
+    <div class="max-w-4xl mx-auto">
+      <!-- Progress Bar -->
+      <div class="quiz-container rounded-2xl p-6 mb-8 shadow-xl">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-lg font-semibold text-gray-700">Progress</span>
+          <span id="progressText" class="text-lg font-bold text-indigo-600">1/10</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-3">
+          <div id="progressBar" class="progress-bar h-3 rounded-full" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <!-- Quiz Container -->
+      <div class="quiz-container rounded-2xl p-8 shadow-xl">
+        <div id="questionContainer">
+          <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center mt-8">
+          <button id="prevBtn" onclick="previousQuestion()" 
+            class="px-6 py-3 bg-gray-500 text-white rounded-xl font-semibold hover:bg-gray-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            ← Previous
+          </button>
+          
+          <div class="flex gap-2">
+            <span id="questionCounter" class="text-sm text-gray-500 font-medium">Question 1 of 10</span>
+          </div>
+          
+          <button id="nextBtn" onclick="nextQuestion()" 
+            class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Enhanced Footer ===== -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-16 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <h5 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-4">EduPath</h5>
+        <p class="text-gray-500 text-sm">© 2025 EduPath. Crafted with ❤️ for the future leaders.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // Quiz data for different audiences
+    const quizData = {
+      class10: {
+        title: "Stream Selection Quiz",
+        questions: [
+          {
+            question: "Do you enjoy solving mathematical problems and equations?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in understanding how things work in nature?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you like reading about business, economics, and finance?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you drawn to creative activities like art, music, or writing?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you prefer working with numbers and data analysis?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in social issues and helping people?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you enjoy conducting experiments and research?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you good at memorizing facts and historical events?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you like working with computers and technology?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in learning different languages?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          }
+        ]
+      },
+      class12: {
+        title: "Higher Education Path Quiz",
+        questions: [
+          {
+            question: "Are you interested in pursuing engineering or technology?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to study medicine and become a doctor?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in business and management studies?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to pursue arts, humanities, or social sciences?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in law and legal studies?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to study pure sciences (Physics, Chemistry, Biology)?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in design, architecture, or creative fields?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to pursue agriculture or environmental studies?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in journalism, media, or communication?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to study psychology or behavioral sciences?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          }
+        ]
+      },
+      undergraduate: {
+        title: "Career Specialization Quiz",
+        questions: [
+          {
+            question: "Are you interested in software development and programming?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in data science or analytics?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in marketing and digital media?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to pursue research and academia?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in finance and investment banking?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in healthcare or medical technology?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in entrepreneurship and startups?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in government or public service?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in consulting and advisory roles?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in non-profit or social impact organizations?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          }
+        ]
+      },
+      graduate: {
+        title: "Professional Development Quiz",
+        questions: [
+          {
+            question: "Do you want to pursue higher studies (Master's/PhD)?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in IT and technology jobs?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in core engineering fields?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in government jobs and civil services?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to start your own business or startup?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in management and leadership roles?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in multinational corporations?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in teaching and education sector?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Do you want to work in healthcare or pharmaceutical industry?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          },
+          {
+            question: "Are you interested in creative industries and media?",
+            options: ["Yes", "No", "Maybe", "Maybe Not"]
+          }
+        ]
+      }
+    };
+
+    // Scoring system
+    const scores = {
+      "Yes": 2,
+      "Maybe": 1,
+      "Maybe Not": -1,
+      "No": -2
+    };
+
+    // Global variables
+    let currentQuestion = 0;
+    let answers = [];
+    let selectedAudience = 'class10';
+
+    // Initialize quiz
+    function initQuiz() {
+      selectedAudience = localStorage.getItem('selectedAudience') || 'class10';
+      const quiz = quizData[selectedAudience];
+      
+      if (!quiz) {
+        alert('Invalid quiz selection. Redirecting to quiz selection page.');
+        window.location.href = 'quiz.html';
+        return;
+      }
+
+      // Initialize answers array
+      answers = new Array(quiz.questions.length).fill(null);
+      
+      // Display first question
+      displayQuestion();
+      updateProgress();
+    }
+
+    // Display current question
+    function displayQuestion() {
+      const quiz = quizData[selectedAudience];
+      const question = quiz.questions[currentQuestion];
+      
+      const questionHTML = `
+        <div class="question-slide active">
+          <h2 class="text-2xl font-bold mb-8 text-gray-800 text-center">${question.question}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${question.options.map((option, index) => `
+              <button class="option-btn p-4 rounded-xl text-left font-medium transition-all duration-300 ${
+                answers[currentQuestion] === option ? 'selected' : ''
+              }" onclick="selectOption('${option}')">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">${option}</span>
+                  <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center ${
+                    answers[currentQuestion] === option ? 'bg-white border-white' : ''
+                  }">
+                    ${answers[currentQuestion] === option ? '✓' : ''}
+                  </div>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('questionContainer').innerHTML = questionHTML;
+      updateNavigationButtons();
+    }
+
+    // Select an option
+    function selectOption(option) {
+      answers[currentQuestion] = option;
+      displayQuestion(); // Refresh to show selection
+    }
+
+    // Update progress bar and text
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / quizData[selectedAudience].questions.length) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      document.getElementById('progressText').textContent = `${currentQuestion + 1}/10`;
+      document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of 10`;
+    }
+
+    // Update navigation buttons
+    function updateNavigationButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      prevBtn.disabled = currentQuestion === 0;
+      
+      if (currentQuestion === quizData[selectedAudience].questions.length - 1) {
+        nextBtn.textContent = 'Finish Quiz →';
+        nextBtn.onclick = finishQuiz;
+      } else {
+        nextBtn.textContent = 'Next →';
+        nextBtn.onclick = nextQuestion;
+      }
+      
+      nextBtn.disabled = answers[currentQuestion] === null;
+    }
+
+    // Next question
+    function nextQuestion() {
+      if (answers[currentQuestion] === null) {
+        alert('Please select an answer before proceeding.');
+        return;
+      }
+      
+      if (currentQuestion < quizData[selectedAudience].questions.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+        updateProgress();
+      }
+    }
+
+    // Previous question
+    function previousQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
+        updateProgress();
+      }
+    }
+
+    // Finish quiz
+    function finishQuiz() {
+      if (answers[currentQuestion] === null) {
+        alert('Please select an answer before finishing.');
+        return;
+      }
+      
+      // Calculate total score
+      let totalScore = 0;
+      answers.forEach(answer => {
+        totalScore += scores[answer];
+      });
+      
+      // Store results and redirect
+      localStorage.setItem('quizResults', JSON.stringify({
+        audience: selectedAudience,
+        answers: answers,
+        score: totalScore
+      }));
+      
+      window.location.href = 'results.html';
+    }
+
+    // Initialize quiz when page loads
+    document.addEventListener('DOMContentLoaded', initQuiz);
+  </script>
+
+</body>
+
+</html>

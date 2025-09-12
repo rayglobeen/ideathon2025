@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Comparer - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar {
+      transform: translateX(-100%);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.95), rgba(139, 69, 19, 0.95));
+      backdrop-filter: blur(20px);
+    }
+
+    .sidebar.open { transform: translateX(0); }
+
+    .float { animation: float 6s ease-in-out infinite; }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .comparison-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .comparison-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-bg {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.4);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 float"></div>
+    <div class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 float" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15 float" style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-bg sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3 animate-on-scroll">
+        <button id="hamburger" class="text-gray-700 hover:text-indigo-600 focus:outline-none transition-all duration-300 hover:scale-110">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <div>
+          <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            EduPath</h1>
+          <p class="text-xs text-gray-500 -mt-1 font-medium">Powered by Hackfinity ✨</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-6 items-center font-medium">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105">Home</a>
+        <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105">About Us</a>
+        <a href="terms.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105">Terms</a>
+        <a id="auth-btn" href="login.html" class="btn-primary text-white px-6 py-3 rounded-xl shadow-lg font-semibold text-sm">
+          🚀 Login / Signup
+        </a>
+        <div id="profile-menu" class="relative hidden">
+          <button id="profile-btn" class="btn-primary text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm">Profile ▾</button>
+          <div id="profile-dropdown" class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl p-4 border border-gray-100 hidden">
+            <div class="mb-3">
+              <div id="profile-name" class="font-semibold text-gray-800">User</div>
+              <div id="profile-email" class="text-sm text-gray-500">user@example.com</div>
+            </div>
+            <a href="profile.html" class="block w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-3 rounded-lg mb-2 text-center">View Profile</a>
+            <button id="logout-btn" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-lg">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar fixed inset-y-0 left-0 w-80 z-50 p-8">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold text-white">✨ Navigation</h2>
+      <button id="closeSidebar" class="text-white hover:text-red-300 text-2xl transition-all duration-300 hover:scale-125 hover:rotate-90">&times;</button>
+    </div>
+    <ul class="space-y-6 text-white font-medium">
+      <li><a href="quiz.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🎯</span> Career Assessment</a></li>
+      <li><a href="mapping.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🏫</span> College Finder</a></li>
+      <li><a href="material.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>📚</span> Study Resources</a></li>
+      <li><a href="career.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🎓</span> Career Paths</a></li>
+      <li><a href="counseling.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>📹</span> Video Library</a></li>
+      <li><a href="timeline.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>⚡</span> Timeline Tracker</a></li>
+      <li><a href="chatbot.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🤖</span> Talk to your AI Guide</a></li>
+      <li><a href="community.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>💬</span> Community</a></li>
+    </ul>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="hero-bg text-white py-20 text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 max-w-5xl mx-auto">
+      <h2 class="hero-title text-5xl md:text-6xl font-black mb-6 leading-tight animate-on-scroll">
+        Career Comparer
+        <br>
+        <span class="bg-gradient-to-r from-yellow-300 via-pink-300 to-white bg-clip-text text-transparent">
+          Side-by-Side Analysis
+        </span>
+      </h2>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed font-light animate-on-scroll" style="animation-delay: 0.2s;">
+        Compare different courses and career streams to make informed decisions about your educational journey.
+      </p>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h3 class="text-4xl font-black mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          Course Comparison
+        </h3>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Compare B.Com vs BBA to understand which path suits you better
+        </p>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="comparison-card p-8 rounded-3xl shadow-xl animate-on-scroll mb-12">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b-2 border-gray-200">
+                <th class="text-left py-4 px-6 text-lg font-bold text-gray-800">Criteria</th>
+                <th class="text-center py-4 px-6 text-lg font-bold text-blue-600">B.Com (Commerce)</th>
+                <th class="text-center py-4 px-6 text-lg font-bold text-purple-600">BBA (Business Administration)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Duration</td>
+                <td class="py-4 px-6 text-center text-gray-600">3 years</td>
+                <td class="py-4 px-6 text-center text-gray-600">3 years</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Average Fees</td>
+                <td class="py-4 px-6 text-center text-green-600 font-bold">₹25,000/year</td>
+                <td class="py-4 px-6 text-center text-orange-600 font-bold">₹1,20,000/year</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Focus Area</td>
+                <td class="py-4 px-6 text-center text-gray-600">Accounting, Finance, Economics</td>
+                <td class="py-4 px-6 text-center text-gray-600">Management, Marketing, Operations</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Career Options</td>
+                <td class="py-4 px-6 text-center text-gray-600">CA, CS, Banking, Finance</td>
+                <td class="py-4 px-6 text-center text-gray-600">MBA, Corporate Jobs, Entrepreneurship</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Starting Salary</td>
+                <td class="py-4 px-6 text-center text-blue-600 font-bold">₹3.5 - 5 LPA</td>
+                <td class="py-4 px-6 text-center text-purple-600 font-bold">₹4.5 - 7 LPA</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Growth Potential</td>
+                <td class="py-4 px-6 text-center text-gray-600">Steady, Professional</td>
+                <td class="py-4 px-6 text-center text-gray-600">High, Leadership Roles</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors duration-200">
+                <td class="py-4 px-6 font-semibold text-gray-700">Best For</td>
+                <td class="py-4 px-6 text-center text-gray-600">Numbers, Analysis, Stability</td>
+                <td class="py-4 px-6 text-center text-gray-600">Leadership, Innovation, Growth</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Detailed Comparison Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- B.Com Card -->
+        <div class="comparison-card p-8 rounded-3xl shadow-xl animate-on-scroll">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">📊</div>
+            <h4 class="text-2xl font-bold text-blue-600 mb-2">B.Com (Commerce)</h4>
+            <p class="text-gray-600">Traditional commerce education</p>
+          </div>
+          <div class="space-y-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h5 class="font-bold text-blue-800 mb-2">Pros:</h5>
+              <ul class="text-sm text-blue-700 space-y-1">
+                <li>• Lower cost of education</li>
+                <li>• Strong foundation in accounting</li>
+                <li>• Clear path to professional certifications</li>
+                <li>• Stable career prospects</li>
+              </ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg">
+              <h5 class="font-bold text-red-800 mb-2">Cons:</h5>
+              <ul class="text-sm text-red-700 space-y-1">
+                <li>• Limited management exposure</li>
+                <li>• Slower career progression</li>
+                <li>• Less focus on soft skills</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- BBA Card -->
+        <div class="comparison-card p-8 rounded-3xl shadow-xl animate-on-scroll" style="animation-delay: 0.1s;">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">🎯</div>
+            <h4 class="text-2xl font-bold text-purple-600 mb-2">BBA (Business Administration)</h4>
+            <p class="text-gray-600">Modern business management education</p>
+          </div>
+          <div class="space-y-4">
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <h5 class="font-bold text-purple-800 mb-2">Pros:</h5>
+              <ul class="text-sm text-purple-700 space-y-1">
+                <li>• Comprehensive business knowledge</li>
+                <li>• Better leadership development</li>
+                <li>• Higher starting salaries</li>
+                <li>• Direct path to MBA</li>
+              </ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg">
+              <h5 class="font-bold text-red-800 mb-2">Cons:</h5>
+              <ul class="text-sm text-red-700 space-y-1">
+                <li>• Higher education costs</li>
+                <li>• More competitive admission</li>
+                <li>• Requires strong communication skills</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="text-center animate-on-scroll" style="animation-delay: 0.4s;">
+        <button id="compareAnother" class="btn-primary text-white px-8 py-4 rounded-xl shadow-lg font-semibold text-lg hover:scale-105 transition-transform duration-300">
+          🔄 Compare Another Course
+        </button>
+        <a href="index.html" class="ml-4 glass px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105 border-2 border-white/30">
+          🏠 Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-16 mt-16 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <h5 class="text-4xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              EduPath</h5>
+            <span class="text-2xl">✨</span>
+          </div>
+          <p class="text-lg text-gray-400 mb-6 leading-relaxed">
+            Empowering the next generation with intelligent career guidance, personalized learning paths,
+            and the tools needed to transform dreams into reality.
+          </p>
+        </div>
+        <div>
+          <h5 class="text-white font-bold text-xl mb-6">Quick Links</h5>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>🏠</span> Home</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>ℹ️</span> About Us</a></li>
+            <li><a href="contact.html" class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>📞</span> Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-bold text-xl mb-6">Get in Touch</h5>
+          <div class="space-y-4">
+            <p class="flex items-center gap-3">
+              <span class="text-indigo-400">📧</span>
+              <a href="mailto:info@edupath.com" class="hover:text-white transition-colors duration-300">hello@edupath.com</a>
+            </p>
+            <p class="flex items-center gap-3">
+              <span class="text-indigo-400">📱</span>
+              <a href="tel:+919876543210" class="hover:text-white transition-colors duration-300">+91 98765 43210</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 text-sm mb-4 md:mb-0">
+          © 2025 EduPath. Crafted with ❤️ for the future leaders.
+        </p>
+        <div class="flex gap-6 text-sm">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Sidebar functionality
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.getElementById("hamburger");
+    const closeSidebar = document.getElementById("closeSidebar");
+
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sidebar.classList.add("open");
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeSidebar.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      document.body.style.overflow = 'auto';
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove("open");
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+      animateElements.forEach(el => {
+        observer.observe(el);
+      });
+    });
+
+    // Compare Another functionality
+    document.getElementById('compareAnother').addEventListener('click', function() {
+      this.innerHTML = '🔄 Generating New Comparison...';
+      this.disabled = true;
+      
+      setTimeout(() => {
+        this.innerHTML = '🔄 Compare Another Course';
+        this.disabled = false;
+        
+        // Add animation to cards
+        const cards = document.querySelectorAll('.comparison-card');
+        cards.forEach((card, index) => {
+          card.style.animation = 'none';
+          setTimeout(() => {
+            card.style.animation = 'slideInUp 0.6s ease forwards';
+          }, index * 100);
+        });
+      }, 2000);
+    });
+  </script>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    const supabaseUrl = "https://htsegsgdffdvpgwroiti.supabase.co";
+    const supabaseAnonKey = "sb_publishable_iP7VYAIrC6UiJvlfyilQqw_3x3-Hip9";
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: { storage: localStorage, autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+    });
+    window.supabase = supabase;
+
+    const authBtn = document.getElementById('auth-btn');
+    const profileMenu = document.getElementById('profile-menu');
+    const profileBtn = document.getElementById('profile-btn');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const logoutBtn = document.getElementById('logout-btn');
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+
+    async function refreshAuthUI() {
+      const fakeUser = JSON.parse(localStorage.getItem('user'));
+
+      if (fakeUser) {
+        if (authBtn) authBtn.classList.add('hidden');
+        if (profileMenu) profileMenu.classList.remove('hidden');
+        if (profileName) profileName.textContent = fakeUser.name || fakeUser.email;
+        if (profileEmail) profileEmail.textContent = fakeUser.email || '';
+        return;
+      }
+
+      const pendingEmail = localStorage.getItem('pendingEmail');
+      if (pendingEmail) {
+        const user = {
+          name: pendingEmail.split("@")[0],
+          email: pendingEmail
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.removeItem("pendingEmail");
+
+        if (authBtn) authBtn.classList.add('hidden');
+        if (profileMenu) profileMenu.classList.remove('hidden');
+        if (profileName) profileName.textContent = user.name;
+        if (profileEmail) profileEmail.textContent = user.email;
+        return;
+      }
+
+      const { data: { session }, error } = await supabase.auth.getSession();
+      const user = session?.user || null;
+
+      if (user) {
+        const fakeUser = {
+          name: user.user_metadata?.full_name || user.user_metadata?.name || user.email.split("@")[0],
+          email: user.email
+        };
+        localStorage.setItem("user", JSON.stringify(fakeUser));
+
+        if (authBtn) authBtn.classList.add('hidden');
+        if (profileMenu) profileMenu.classList.remove('hidden');
+        if (profileName) profileName.textContent = fakeUser.name;
+        if (profileEmail) profileEmail.textContent = fakeUser.email;
+      } else {
+        if (profileMenu) profileMenu.classList.add('hidden');
+        if (authBtn) authBtn.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (profileDropdown && profileBtn) {
+        if (profileBtn.contains(e.target)) {
+          e.stopPropagation();
+          profileDropdown.classList.toggle('hidden');
+        } else if (!profileDropdown.contains(e.target)) {
+          profileDropdown.classList.add('hidden');
+        }
+      }
+    });
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('pendingEmail');
+        await supabase.auth.signOut();
+        if (profileDropdown) profileDropdown.classList.add('hidden');
+        window.location.href = 'index.html';
+      });
+    }
+
+    if (profileBtn && profileDropdown) {
+      profileBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        profileDropdown.classList.toggle('hidden');
+      });
+    }
+
+    refreshAuthUI();
+    setTimeout(refreshAuthUI, 1500);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) refreshAuthUI();
+    });
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      refreshAuthUI();
+    });
+  </script>
+
+</body>
+
+</html>

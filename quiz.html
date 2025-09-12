@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Quiz - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Enhanced animations and effects */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(99, 102, 241, 0.6);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Hero background with animated gradient */
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Enhanced feature cards */
+    .feature-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    /* Sidebar styling */
+    .sidebar {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.95) 0%, rgba(99, 102, 241, 0.9) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9));
+    }
+
+    /* Floating elements */
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Glowing effects */
+    .glow-btn {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    /* Scroll animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Enhanced header */
+    .header-bg { 
+      background: rgba(255,255,255,0.95); 
+      backdrop-filter: blur(20px); 
+      border-bottom:1px solid rgba(0,0,0,0.06); 
+    }
+    
+    /* Enhanced typography */
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Quiz card styles */
+    .quiz-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.4);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .quiz-card:active {
+      transform: translateY(-4px) scale(0.98);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div
+      class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 float">
+    </div>
+    <div
+      class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 float"
+      style="animation-delay: -2s;"></div>
+    <div
+      class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15 float"
+      style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- ===== Enhanced Header ===== -->
+  <header class="header-bg sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3 animate-on-scroll">
+        <!-- Enhanced Hamburger -->
+        <button id="hamburger" class="text-gray-700 hover:text-indigo-600 focus:outline-none transition-all duration-300 hover:scale-110">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <!-- Enhanced Brand -->
+        <div>
+          <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            EduPath</h1>
+          <p class="text-xs text-gray-500 -mt-1 font-medium">Powered by Hackfinity ✨</p>
+        </div>
+      </div>
+      <!-- Enhanced Nav links -->
+      <nav class="hidden md:flex gap-6 items-center font-medium">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105 relative after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Home</a>
+        <a href="about.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105 relative after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">About Us</a>
+        <a href="terms.html" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:scale-105 relative after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Terms</a>
+       
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Enhanced Sidebar ===== -->
+  <aside id="sidebar" class="sidebar fixed inset-y-0 left-0 w-80 z-50 p-8">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold text-white">✨ Navigation</h2>
+      <button id="closeSidebar" class="text-white hover:text-red-300 text-2xl transition-all duration-300 hover:scale-125 hover:rotate-90">&times;</button>
+    </div>
+    <ul class="space-y-6 text-white font-medium">
+      <li><a href="quiz.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🎯</span> Career Assessment</a></li>
+      <li><a href="mapping.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🏫</span> College Finder</a></li>
+      <li><a href="material.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>📚</span> Study Resources</a></li>
+      <li><a href="career.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>🎓</span> Career Paths</a></li>
+      <li><a href="counseling.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>📹</span> Video Library</a></li>
+      <li><a href="timeline.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>⚡</span> Timeline Tracker</a></li>
+      <li><a href="decision-simulator.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>⚖️</span> Decision Simulator</a></li>
+      <li><a href="career-comparer.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>📊</span> Career Comparer</a></li>
+      <li><a href="course-cost-estimator.html" class="flex items-center gap-3 hover:text-yellow-300 transition-all duration-300 hover:translate-x-2"><span>💰</span> Course Cost Estimator</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Enhanced Header ===== -->
+  <header class="hero-bg text-white py-20 text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div> 
+
+    <h1 class="hero-title text-5xl md:text-6xl font-black mb-6 leading-tight animate-on-scroll">
+      Choose Your
+      <br>
+      <span class="bg-gradient-to-r from-yellow-300 via-pink-300 to-white bg-clip-text text-transparent">
+        Career Path
+      </span>
+    </h1>
+
+    <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-light animate-on-scroll"
+      style="animation-delay: 0.2s;">
+      Take our personalized quiz to discover the perfect career direction for your future.
+      <strong>Select your current stage</strong> to get started.
+    </p>
+    </div>
+  </header>
+
+  <!-- ===== Quiz Audience Selection ===== -->
+  <section class="py-20 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2
+          class="text-4xl font-black mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          Select Your Current Stage
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Our quiz adapts to your educational level to provide the most relevant career guidance
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Class 10th & Below Card -->
+        <div class="quiz-card p-8 rounded-3xl shadow-xl animate-on-scroll group" onclick="startQuiz('class10')">
+          <div class="text-center">
+            <div class="text-6xl mb-6 group-hover:scale-125 transition-transform duration-300">🎓</div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Class 10th & Below</h3>
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+              Just starting your educational journey? Discover which stream (Science, Commerce, Arts)
+              aligns best with your interests and strengths.
+            </p>
+            <div
+              class="inline-flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+              Start Quiz
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class 11th-12th Card -->
+        <div class="quiz-card p-8 rounded-3xl shadow-xl animate-on-scroll group" style="animation-delay: 0.1s;"
+          onclick="startQuiz('class12')">
+          <div class="text-center">
+            <div class="text-6xl mb-6 group-hover:scale-125 transition-transform duration-300">📚</div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Class 11th–12th / Just Passed 12th</h3>
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+              Ready for higher education? Find the perfect degree programs and career paths
+              that match your academic interests and career goals.
+            </p>
+            <div
+              class="inline-flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+              Start Quiz
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Undergraduates Card -->
+        <div class="quiz-card p-8 rounded-3xl shadow-xl animate-on-scroll group" style="animation-delay: 0.2s;"
+          onclick="startQuiz('undergraduate')">
+          <div class="text-center">
+            <div class="text-6xl mb-6 group-hover:scale-125 transition-transform duration-300">🎯</div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Undergraduates (College Students)</h3>
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+              Currently in college? Explore specialized career tracks, internships,
+              and advanced study options that align with your degree.
+            </p>
+            <div
+              class="inline-flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+              Start Quiz
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graduates Card -->
+        <div class="quiz-card p-8 rounded-3xl shadow-xl animate-on-scroll group" style="animation-delay: 0.3s;"
+          onclick="startQuiz('graduate')">
+          <div class="text-center">
+            <div class="text-6xl mb-6 group-hover:scale-125 transition-transform duration-300">🚀</div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Graduates (Job Seekers / Higher Studies)</h3>
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+              Ready to enter the workforce or pursue higher studies? Discover job opportunities,
+              advanced degrees, and career transitions that fit your profile.
+            </p>
+            <div
+              class="inline-flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+              Start Quiz
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Enhanced Footer ===== -->
+  <footer class="bg-gray-900 text-gray-300 py-16 mt-16 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" 40" height="40" viewBox="0 0 40 40"
+      xmlns="http://www.w3.org/2000/svg" %3E%3Cg fill="%23ffffff" fill-opacity="0.03" %3E%3Cpath
+      d="M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0 0c0 4.4 3.6 8 8 8s8-3.6 8-8-3.6-8-8-8-8 3.6-8 8z"
+      /%3E%3C/g%3E%3C/svg%3E')]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <h5
+              class="text-4xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              EduPath</h5>
+            <span class="text-2xl">✨</span>
+          </div>
+          <p class="text-lg text-gray-400 mb-6 leading-relaxed">
+            Empowering the next generation with intelligent career guidance, personalized learning paths,
+            and the tools needed to transform dreams into reality.
+          </p>
+        </div>
+
+        <div>
+          <h5 class="text-white font-bold text-xl mb-6">Quick Links</h5>
+          <ul class="space-y-3">
+            <li><a href="index.html"
+                class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>🏠</span> Home</a>
+            </li>
+            <li><a href="about.html"
+                class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>ℹ️</span> About
+                Us</a></li>
+            <li><a href="quiz.html"
+                class="hover:text-white transition-colors duration-300 flex items-center gap-2"><span>🎯</span> Career
+                Quiz</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="text-white font-bold text-xl mb-6">Get in Touch</h5>
+          <div class="space-y-4">
+            <p class="flex items-center gap-3">
+              <span class="text-indigo-400">📧</span>
+              <a href="mailto:info@edupath.com"
+                class="hover:text-white transition-colors duration-300">hello@edupath.com</a>
+            </p>
+            <p class="flex items-center gap-3">
+              <span class="text-indigo-400">📱</span>
+              <a href="tel:+919876543210" class="hover:text-white transition-colors duration-300">+91 98765 43210</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 text-sm mb-4 md:mb-0">
+          © 2025 EduPath. Crafted with ❤️ for the future leaders.
+        </p>
+        <div class="flex gap-6 text-sm">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Enhanced JavaScript ===== -->
+  <script>
+    // Enhanced scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animate-on-scroll class
+    document.addEventListener('DOMContentLoaded', () => {
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+      animateElements.forEach(el => {
+        observer.observe(el);
+      });
+    });
+
+    // Start quiz function
+    function startQuiz(audience) {
+      // Store the selected audience in localStorage
+      localStorage.setItem('selectedAudience', audience);
+
+      // Redirect to questions page
+      window.location.href = 'questions.html';
+    }
+
+    // Add loading animation
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+
+    // Enhanced button interactions
+    document.querySelectorAll('.quiz-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+    
+    // Enhanced sidebar functionality
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.getElementById("hamburger");
+    const closeSidebar = document.getElementById("closeSidebar");
+
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sidebar.classList.add("open");
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeSidebar.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove("open");
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Materials - EduPath</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Enhanced animations and effects */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(99, 102, 241, 0.6);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Hero background with animated gradient */
+    .hero-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Material container */
+    .material-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    /* Material cards */
+    .material-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .material-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* PDF viewer */
+    .pdf-viewer {
+      background: #f8f9fa;
+      border: 2px dashed #dee2e6;
+      border-radius: 12px;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Floating elements */
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Enhanced typography */
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff, #f8fafc, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    /* Download button */
+    .download-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 text-gray-800 overflow-x-hidden">
+
+  <!-- Glossy Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <h1
+        class="text-2xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+        EduPath</h1>
+      <div class="flex items-center gap-2">
+        <a href="index.html"
+          class="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-indigo-600 to-purple-600">← Back to
+          Home</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div
+      class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 float">
+    </div>
+    <div
+      class="absolute top-96 right-20 w-24 h-24 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 float"
+      style="animation-delay: -2s;"></div>
+    <div
+      class="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-15 float"
+      style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- ===== Enhanced Header ===== -->
+  <header class="hero-bg text-white py-20 text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 max-w-5xl mx-auto">
+      
+
+      <h1 class="hero-title text-4xl md:text-5xl font-black mb-4 leading-tight">
+        Study Materials
+      </h1>
+
+      <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light">
+        Access curated study materials and resources to support your career journey
+      </p>
+    </div>
+  </header>
+
+  <!-- ===== Materials Content ===== -->
+  <section class="py-12 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- E-Books Section -->
+      <div class="material-container rounded-2xl p-8 shadow-xl mb-10">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            E-Books</h2>
+        
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks1/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Tech & Engineering Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Explore engineering branches and career paths.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Unlocking-Your-Future-Tech-and-Engineering-Careers.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Unlocking-Your-Future-Tech-and-Engineering-Careers.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks2/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Healthcare Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Medical and allied health opportunities.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Your-Future-in-Healthcare-Making-a-Difference.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Your-Future-in-Healthcare-Making-a-Difference.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks3/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Creative & Media Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Design, content, film and more.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Unlocking-Your-Potential-Creative-Careers-and-Media.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Unlocking-Your-Potential-Creative-Careers-and-Media.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks4/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Government & Civil Services</h3>
+            <p class="text-sm text-gray-600 mb-3">UPSC and govt career pathways.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Shaping-Indias-Future-Careers-in-Government-and-Civil-Services.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Shaping-Indias-Future-Careers-in-Government-and-Civil-Services.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks5/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Entrepreneurship</h3>
+            <p class="text-sm text-gray-600 mb-3">Start small, think big roadmap.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Your-Path-to-Rural-Entrepreneurship-Dream-Big-Start-Small.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Your-Path-to-Rural-Entrepreneurship-Dream-Big-Start-Small.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/ebooks6/600/360" alt="Ebook"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Agriculture Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Modern roles in agriculture.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Your-Future-in-Agriculture-A-World-of-Opportunity.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Your-Future-in-Agriculture-A-World-of-Opportunity.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skill Materials Section -->
+      <div class="material-container rounded-2xl p-8 shadow-xl">
+        <h2
+          class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          Skill Materials</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills1/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Digital Literacy</h3>
+            <p class="text-sm text-gray-600 mb-3">Digital skills to thrive.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Digital-Literacy-Your-Gateway-to-Tomorrow.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Digital-Literacy-Your-Gateway-to-Tomorrow.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills2/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Financial Literacy</h3>
+            <p class="text-sm text-gray-600 mb-3">Money management basics.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Financial-Literacy-Your-Path-to-a-Brighter-Future.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Financial-Literacy-Your-Path-to-a-Brighter-Future.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills3/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Education Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Teaching & academia.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Shaping-Tomorrow-Careers-in-Education.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Shaping-Tomorrow-Careers-in-Education.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills4/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Rural Youth Resource</h3>
+            <p class="text-sm text-gray-600 mb-3">Premium resource pack.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/A-Premium-Resource-for-Rural-Youth.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/A-Premium-Resource-for-Rural-Youth.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills5/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Entrepreneurship Guide</h3>
+            <p class="text-sm text-gray-600 mb-3">Idea to launch basics.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Your-Path-to-Rural-Entrepreneurship-Dream-Big-Start-Small.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Your-Path-to-Rural-Entrepreneurship-Dream-Big-Start-Small.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+          <div class="material-card p-4 rounded-xl shadow-lg">
+            <img src="https://picsum.photos/seed/skills6/600/360" alt="Skill"
+              class="w-full h-40 object-cover rounded-lg mb-4">
+            <h3 class="text-lg font-semibold text-gray-800">Creative Careers</h3>
+            <p class="text-sm text-gray-600 mb-3">Media & design toolkit.</p>
+            <div class="flex gap-2">
+              <button onclick="openPdfModal('books/Unlocking-Your-Potential-Creative-Careers-and-Media.pdf')"
+                class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg font-semibold">View</button>
+              <a href="books/Unlocking-Your-Potential-Creative-Careers-and-Media.pdf" download
+                class="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-700 bg-white hover:bg-indigo-50">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        <a href="quiz.html"
+          class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl text-center">
+          🎯 Take Another Quiz
+        </a>
+        <a href="career.html"
+          class="px-8 py-4 bg-gray-500 text-white rounded-xl font-semibold hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-xl text-center">
+          🧭 Check Out Career Roadmaps
+        </a>
+        <a href="mapping.html"
+          class="px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl text-center">
+          🗺️ Find Colleges
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Enhanced Footer ===== -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-16 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <h5
+          class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-4">
+          EduPath</h5>
+        <p class="text-gray-500 text-sm">© 2025 EduPath. Crafted with ❤️ for the future leaders.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <!-- Modal -->
+  <div id="pdfModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl w-full max-w-5xl h-[80vh] shadow-2xl flex flex-col">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-semibold text-gray-800">Preview</h3>
+        <div class="space-x-2">
+          <a id="downloadLink" href="#" download
+            class="px-3 py-2 rounded-lg bg-indigo-600 text-white text-sm">Download</a>
+          <button onclick="closePdfModal()"
+            class="px-3 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm">Close</button>
+        </div>
+      </div>
+      <div class="flex-1">
+        <iframe id="pdfFrame" src="" class="w-full h-full"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add loading animation
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+
+    // Enhanced button interactions
+    document.querySelectorAll('.material-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-5px)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+
+    function openPdfModal(path) {
+      const modal = document.getElementById('pdfModal');
+      const frame = document.getElementById('pdfFrame');
+      const dl = document.getElementById('downloadLink');
+      frame.src = path;
+      dl.href = path;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePdfModal() {
+      const modal = document.getElementById('pdfModal');
+      const frame = document.getElementById('pdfFrame');
+      frame.src = '';
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+
+
+
+
+</body>
+
+</html>
